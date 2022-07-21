@@ -1,0 +1,83 @@
+@charset "UTF-8";
+/* CSS Document */
+
+:root {
+  --color-background: rgb(44, 54, 64);
+  --color-foreground: rgb(255, 255, 255);
+  --color-text: rgb(51, 57, 63);
+  --color-tonic: rgb(0, 102, 153);
+  --color-mediant: rgb(0, 119, 180);
+  --color-dominant: rgb(51, 153, 204);
+  --color-accent: rgb(255, 204, 51);
+  --color-accent-backup: rgb(72, 88, 104);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: rgb(255, 255, 255);
+    --color-foreground: rgb(44, 54, 64);
+    --color-text: rgb(255, 255, 255);
+    --color-tonic: rgb(0, 102, 153);
+    --color-mediant: rgb(0, 119, 180);
+    --color-dominant: rgb(51, 153, 204);
+    --color-accent: rgb(255, 204, 51);
+    --color-accent-backup: rgb(72, 88, 104);
+  }
+}
+
+html,
+body {
+  background-color: var(--color-foreground);
+  font-family: Arial;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+}
+
+/* - - - - - - - - - CONTENT - - - - - - - - - */
+
+.content {
+  background-color: var(--color-foreground);
+  display: inline-block;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  position: relative; /* To be able to 'absolute' the canvases */
+  width: 100%;
+}
+
+canvas {
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  position: absolute; /* To be able to stack the 2 canvases */
+  top: 0;
+  width: 100%;
+}
+
+#peers {
+  border: 1px solid gray;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.3);
+  list-style: none;
+  position: absolute;
+  margin: 5px;
+  padding: 0;
+  text-align: left;
+  z-index: 3;
+  max-width: 90px;
+}
+
+#toolbar {
+  position: absolute;
+  margin: 5px;
+  padding: 0;
+  right: 0;
+  z-index: 3;
+}
