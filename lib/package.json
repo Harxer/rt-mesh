@@ -1,16 +1,14 @@
 {
-  "name": "hx-rtmesh-lib",
+  "name": "@harxer/rt-mesh-lib",
   "version": "1.0.0",
   "description": "Harxer RTMesh shared library.",
   "type": "module",
   "main": "RTMeshServiceClient.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "repository": "git@github.com:Harxer/rt-mesh.git",
   "author": "Harrison Balogh",
   "license": "ISC",
   "dependencies": {
-    "hx-engine": "file:../../HxJSEngine",
-    "hx-geometry": "file:../../HxGeometry"
+    "@harxer/engine": "1.0.0",
+    "@harxer/geometry": "1.0.0"
   }
 }
