@@ -1,26 +1,14 @@
 // import jwt from 'jsonwebtoken'
 import { fail, MSG_TYPE as MsgType } from './controller.js'
 import ws from 'ws';
-import { domain } from '../config.js'
-import * as HXAuthServiceClient from './HXAuthServiceClient.js'
+import { validate } from '@harxer/session-manager-lib/service_client/HxAuthServiceClientModule.js'
+import { AUTH_DOMAIN } from '@harxer/rt-mesh-lib/Constants.js'
+
 const WebSocketServer = ws.Server
 
-// const jwt = require('jsonwebtoken'),
-//       Controller = require('./controller'),
-//       MsgType = Controller.MSG_TYPE,
-//       // fs = require('fs'),
-//       // secret = JSON.parse(fs.readFileSync("key.json")).secret,
-//       WebSocketServer = require('ws').Server,
-//       domain = require("../config.js").domain;
-//       HXAuthServiceClient = require('./HXAuthServiceClient');
-
-import GameStateModel from 'hx-rtmesh-lib/models/Game.js'
-// const UserModel = require('hx-rtmesh-lib/User')
-// import * as Engine from 'hx-engine/engine.js'
+import GameStateModel from '@harxer/rt-mesh-lib/models/Game.js'
 
 const verifyClient = (info, verified) => {
-  if (domain == "localhost") return verified(true)
-
   if (info.req.headers.cookie === undefined) {
     console.log("No JWT.")
     return verified(false, 403, 'No token provided')
@@ -30,7 +18,7 @@ const verifyClient = (info, verified) => {
     console.log("Denied access to WebSocket. No token provided.");
     verified(false, 403, 'No token provided.');
   } else {
-    HXAuthServiceClient.validate(token).then(_ => {
+    validate(AUTH_DOMAIN, token).then(_ => {
       verified(true);
     }).catch(e => {
       console.log(`${new Date()} - Failed to authenticate: ${e}`)

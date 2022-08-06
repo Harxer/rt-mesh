@@ -2,7 +2,6 @@
   "name": "hx-rtmesh-client",
   "version": "1.0.0",
   "description": "Harxer RTMesh client app.",
-  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --open",
@@ -11,10 +10,10 @@
   "author": "Harrison Balogh",
   "license": "ISC",
   "dependencies": {
-    "hx-engine": "file:../../HxJSEngine",
-    "hx-geometry": "file:../../HxGeometry",
-    "hx-rtmesh-lib": "file:../lib",
-    "hx-session-manager": "file:../../HXAuth/hx-session-manager-lib"
+    "@harxer/engine-2d": "1.0.0",
+    "@harxer/geometry": "1.0.0",
+    "@harxer/rt-mesh-lib": "1.0.0",
+    "@harxer/session-manager-lib": "1.1.1"
   },
   "devDependencies": {
     "path": "^0.12.7",
