@@ -13,9 +13,9 @@
   "dependencies": {
     "csprng": "^0.1.2",
     "fs": "0.0.1-security",
-    "@harxer/engine-2d": "1.0.0",
-    "@harxer/rt-mesh-lib": "1.0.0",
-    "@harxer/session-manager-lib": "1.1.1",
+    "@harxer/engine-2d": "1.0.4",
+    "@harxer/rt-mesh-lib": "1.0.4",
+    "@harxer/session-manager-lib": "1.1.3",
     "jsonwebtoken": "^8.5.1",
     "pm2": "^5.1.2",
     "stun": "^1.3.1",
