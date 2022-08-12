@@ -1,6 +1,6 @@
 {
   "name": "@harxer/rt-mesh-lib",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Harxer RTMesh shared library.",
   "type": "module",
   "main": "RTMeshServiceClient.js",
@@ -8,7 +8,7 @@
   "author": "Harrison Balogh",
   "license": "ISC",
   "dependencies": {
-    "@harxer/engine-2d": "1.0.3",
+    "@harxer/engine-2d": "1.0.4",
     "@harxer/geometry": "1.0.0"
   }
 }
