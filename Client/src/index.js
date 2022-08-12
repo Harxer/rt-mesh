@@ -1,6 +1,6 @@
-import { init as worldInit, getPlayerStateSync, getPlayerInputSync, syncPlayerState, addSyncPlayer, removeSyncPlayer } from '@harxer/engine-2d'
-import { addSyncEvent } from '@harxer/engine-2d/engine'
-import HXAuthModal, { logoutButton } from '@harxer/session-manager-lib/service_client/HXAuthModal'
+import { init as worldInit, getPlayerStateSync, getPlayerInputSync, syncPlayerState, addSyncPlayer, toggleCorrectDesync, removeSyncPlayer } from '@harxer/engine-2d'
+import { addSyncEvent } from '@harxer/engine-2d/engine.js'
+import HXAuthModal, { logoutButton } from '@harxer/session-manager-lib/helpers/HXAuthModal.js'
 import { login, validateSession } from '@harxer/session-manager-lib';
 import * as RTMeshServiceClient from '@harxer/rt-mesh-lib'
 import { AUTH_DOMAIN } from '@harxer/rt-mesh-lib/Constants.js'
@@ -30,7 +30,7 @@ function init() {
     RTMeshServiceClient.connect((guid, peers) => {
       toolbar.insertBefore(guidLabel(guid), newLogoutButton)
 
-      addSyncPlayer(guid)
+      addSyncPlayer(guid, true)
       peers.forEach(addSyncPlayer)
 
       RTMeshServiceClient.setNotifyAvailable((...args) => {
@@ -79,4 +79,26 @@ function updatePeersHtml() {
   if (peers.length === 0) return peersListElement.appendChild(guidLabel("No peers."))
 
   peers.forEach(peer => peersListElement.appendChild(guidLabel(peer)))
+}
+
+import { setLerpTime, SYNC_LERP_TIME, toggleShowPredictState, toggleShowDebug } from '@harxer/engine-2d/entities/SyncGoop.js'
+document.getElementById('button-lerp-sync').onclick = e => {
+  let enabled = !!setLerpTime(SYNC_LERP_TIME === 0 ? 0.05 : 0)
+  e.target.innerHTML = enabled ? "Smooth Sync On" : "Smooth Sync Off"
+  e.target.className = enabled ? "enabled" : "disabled"
+}
+document.getElementById('button-predict-state').onclick = e => {
+  let enabled = toggleShowPredictState()
+  e.target.innerHTML = enabled ? "Latency Compensation On" : "Latency Compensation Off"
+  e.target.className = enabled ? "enabled" : "disabled"
+}
+document.getElementById('button-correct-desync').onclick = e => {
+  let enabled = toggleCorrectDesync()
+  e.target.innerHTML = enabled ? "Desync Correction On" : "Desync Correction Off"
+  e.target.className = enabled ? "enabled" : "disabled"
+}
+document.getElementById('button-show-debug').onclick = e => {
+  let enabled = toggleShowDebug()
+  e.target.innerHTML = enabled ? "Debug On" : "Debug Off"
+  e.target.className = enabled ? "enabled" : "disabled"
 }

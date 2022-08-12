@@ -6,6 +6,8 @@ export const MSG_TYPE = {
   Available: "avail",
   Exit: "exit",
   Connected: "conn",
+  Ping: "ping",
+  Pong: "pong",
   Pulse: "pulse",
 
   Sync: "sync",

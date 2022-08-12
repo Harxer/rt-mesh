@@ -40,7 +40,9 @@ const verifyClient = (info, verified) => {
 }
 
 let broadcastTimer = undefined
-const BROADCAST_TIME = 50
+const BROADCAST_TIME = 50 // ms
+let pingTimer = undefined
+const PING_TIME = 5000
 
 const gameState = new GameStateModel()
 // exports.lobbies = []; // {gameModel.users: []}
@@ -64,20 +66,26 @@ export const listen = port => {
   })
 
   broadcast()
+  pingCheck()
 }
 
 /** Socket 'message' event handler. */
 function handleOnMessage(msg, user) {
   msg = JSON.parse(msg);
-  if (msg.type === MsgType.Pulse) return // Pulse messages can be discarded
+  if (msg.type === MsgType.Pulse) return // Pulse m
+
+  let timestamp = Number(process.hrtime.bigint() / 1000000n) // ms // Or use Date.now()
 
   // do something with socket.id
   if (msg.type === MsgType.Sync) {
 
     // gameState._userMap[user.id].syncState(msg.data)
-    let timestamp = Date.now()
     gameState.syncInput(timestamp, user.id, msg.data)
+    return
+  }
 
+  if (msg.type === MsgType.Pong) {
+    user.handlePong(timestamp)
     return
   }
 
@@ -86,12 +94,24 @@ function handleOnMessage(msg, user) {
 
 /** Periodic emitter */
 function broadcast() {
+  let timestamp = Number(process.hrtime.bigint() / 1000000n) // ms
   gameState._users.forEach(user => {
     // user.socket.send(JSON.stringify({type: MsgType.Broadcast, data: gameState.broadcastState()}))
-    user.socket.send(JSON.stringify({type: MsgType.Broadcast, data: gameState.broadcastState()}))
+    user.socket.send(JSON.stringify({type: MsgType.Broadcast, data: gameState.broadcastState(timestamp)}))
   })
 
   broadcastTimer = setTimeout(broadcast, BROADCAST_TIME)
+}
+
+/** Periodic ping check - Aids in state prediction */
+function pingCheck() {
+  let timestamp = Number(process.hrtime.bigint() / 1000000n) // ms
+  gameState._users.forEach(user => {
+    user.lastPingCheck = timestamp
+    user.socket.send(JSON.stringify({type: MsgType.Ping}))
+  })
+
+  pingTimer = setTimeout(pingCheck, PING_TIME)
 }
 
 /** Socket 'close' event handler. */
