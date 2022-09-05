@@ -1,8 +1,8 @@
  #!/bin/bash
 
-mkdir -p ./Server
+mkdir -p ./client
 
-svn checkout https://github.com/$1.git/trunk/Server ./Server \
+svn checkout https://github.com/$1.git/trunk/Client ./client \
   --username harrisonbalogh@gmail.com \
   --password $SVN_SECRET \
   --no-auth-cache \

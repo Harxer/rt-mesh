@@ -2,7 +2,7 @@
 import { fail, MSG_TYPE as MsgType } from './controller.js'
 import ws from 'ws';
 import { validate } from '@harxer/session-manager-lib/service_client/HxAuthServiceClientModule.js'
-import { AUTH_DOMAIN } from '@harxer/rt-mesh-lib/Constants.js'
+import Config from '../config.js'
 
 const WebSocketServer = ws.Server
 
@@ -18,7 +18,7 @@ const verifyClient = (info, verified) => {
     console.log("Denied access to WebSocket. No token provided.");
     verified(false, 403, 'No token provided.');
   } else {
-    validate(AUTH_DOMAIN, token).then(_ => {
+    validate(Config.auth.url, token).then(_ => {
       verified(true);
     }).catch(e => {
       console.log(`${new Date()} - Failed to authenticate: ${e}`)

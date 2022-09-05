@@ -1,15 +1,15 @@
 import { init as worldInit, getPlayerStateSync, getPlayerInputSync, syncPlayerState, addSyncPlayer, toggleCorrectDesync, removeSyncPlayer } from '@harxer/engine-2d'
 import { addSyncEvent } from '@harxer/engine-2d/engine.js'
-import HXAuthModal, { logoutButton } from '@harxer/session-manager-lib/helpers/HXAuthModal.js'
+import HXAuthModal, { logoutButton } from '@harxer/session-manager-lib/helpers/HxAuthModal.js'
 import { login, validateSession } from '@harxer/session-manager-lib';
 import * as RTMeshServiceClient from '@harxer/rt-mesh-lib'
-import { AUTH_DOMAIN } from '@harxer/rt-mesh-lib/Constants.js'
+import Config from './config.js';
 
-validateSession(AUTH_DOMAIN).then(_ => {
+validateSession(Config.url.auth).then(_ => {
   init()
 }).catch(_ => {
   let loginModal = HXAuthModal((user, pwd) => {
-    login(AUTH_DOMAIN, user, pwd).then(_ => {
+    login(Config.url.auth, user, pwd).then(_ => {
       loginModal.parentNode.removeChild(loginModal);
       init()
     }).catch(_ => {})
