@@ -1,6 +1,6 @@
 {
   "name": "@harxer/rt-mesh-lib",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Harxer RTMesh shared library.",
   "type": "module",
   "main": "RTMeshServiceClient.js",
