@@ -12,7 +12,7 @@
   "dependencies": {
     "@harxer/engine-2d": "1.0.5",
     "@harxer/geometry": "1.0.0",
-    "@harxer/rt-mesh-lib": "1.0.5",
+    "@harxer/rt-mesh-lib": "1.1.0",
     "@harxer/session-manager-lib": "1.1.4"
   },
   "devDependencies": {

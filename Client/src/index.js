@@ -27,7 +27,7 @@ function init() {
     let newLogoutButton = logoutButton()
     toolbar.appendChild(newLogoutButton)
 
-    RTMeshServiceClient.connect((guid, peers) => {
+    RTMeshServiceClient.connect(Config.url.relay, (guid, peers) => {
       toolbar.insertBefore(guidLabel(guid), newLogoutButton)
 
       addSyncPlayer(guid, true)
